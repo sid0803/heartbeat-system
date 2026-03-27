@@ -1,4 +1,4 @@
-# Heartbeat Digest MVP
+# Heartbeat System
 
 This is a minimal prototype of a heartbeat system designed to provide non-technical founders with a concise, actionable digest every 30 minutes.
 
