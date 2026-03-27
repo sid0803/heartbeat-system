@@ -75,7 +75,9 @@ class Summarizer:
 
     def __init__(self, gemini_key: str = None, anthropic_key: str = None,
                  openai_key: str = None, provider: str = "auto"):
-        self.feedback_file = "heartbeat/config/feedback.txt"
+        # Project root is two levels up from this file
+        PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.feedback_path = os.path.join(PROJECT_ROOT, "heartbeat_app", "config", "feedback.txt")
         self.provider = provider.lower()  # "auto" | "gemini" | "anthropic" | "openai"
 
         # Normalise – treat placeholder strings as absent
@@ -85,9 +87,9 @@ class Summarizer:
 
     # ── helpers ──────────────────────────────────────────────────────────────
     def _get_founder_preferences(self) -> str:
-        if os.path.exists(self.feedback_file):
+        if os.path.exists(self.feedback_path):
             try:
-                with open(self.feedback_file, "r", encoding="utf-8") as f:
+                with open(self.feedback_path, "r", encoding="utf-8") as f:
                     return f.read().strip()
             except Exception:
                 pass

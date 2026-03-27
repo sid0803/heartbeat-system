@@ -23,7 +23,7 @@ Founders often feel "blind" to their project's technical progress. They either s
 ⚙️ **Key Components:**
 - **`classifier.py`** (Rule Engine): Intelligent classification of raw data into urgent business signals.
 - **`summarizer.py`**: AI-powered generation of the founder-friendly decision brief.
-- **`main.py`**: The central heartbeat orchestration engine.
+- **`heartbeat.py`**: The central heartbeat orchestration engine.
 
 ---
 
@@ -54,7 +54,7 @@ What a founder receives every 30 minutes:
 - **Smart Triage**: Urgency decay — stale events auto-escalate after 4 hours so nothing falls through the cracks.
 - **3 Delivery Channels**: Desktop notification, Slack webhook, or HTML email digest.
 - **Daily Executive Summary**: A "Big Picture" report delivered every morning at 8:00 AM.
-- **Founder Feedback Loop**: Coach the AI directly via `heartbeat/config/feedback.txt` to adjust its style.
+- **Founder Feedback Loop**: Coach the AI directly via `heartbeat_app/config/feedback.txt` to adjust its style.
 - **Mock Mode**: Works fully without any API keys — great for demos and onboarding.
 
 ---
@@ -189,7 +189,7 @@ python test_heartbeat.py
 Starts the background monitoring loop (every 30 minutes + 8AM daily summary):
 
 ```bash
-python main.py
+python heartbeat.py
 ```
 
 ---
@@ -199,7 +199,7 @@ python main.py
 | Connector | Env Var / File | How to get it |
 |---|---|---|
 | **Slack** | `SLACK_TOKEN` | [api.slack.com/apps](https://api.slack.com/apps) → OAuth & Permissions → `channels:history` scope |
-| **Gmail** | `heartbeat/config/gmail_credentials.json` | Google Cloud Console → Gmail API → Download credentials.json |
+| **Gmail** | `heartbeat_app/config/gmail_credentials.json` | Google Cloud Console → Gmail API → Download credentials.json |
 | **GitHub** | `GITHUB_TOKEN` | Settings → Developer Settings → Personal Access Tokens |
 | **Notion** | `NOTION_TOKEN` + `database_id` in settings.yaml | [notion.so/my-integrations](https://www.notion.so/my-integrations) + share DB with integration |
 | **Health** | Endpoint URLs in settings.yaml | Add your API/dashboard URLs |

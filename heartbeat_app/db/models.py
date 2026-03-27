@@ -1,8 +1,15 @@
 import sqlite3
 import os
 
+# Project root is two levels up from this file
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 class DatabaseManager:
-    def __init__(self, db_path: str = "heartbeat/db/heartbeat.db"):
+    def __init__(self, db_path: str = None):
+        if db_path is None:
+            self.db_path = os.path.join(PROJECT_ROOT, "heartbeat_app", "db", "heartbeat.db")
+        else:
+            self.db_path = db_path
         self.db_path = db_path
         self._init_db()
 

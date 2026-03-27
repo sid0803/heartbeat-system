@@ -248,7 +248,7 @@ def _extract_title(text: str) -> str:
 
 # ── Rule Engine ────────────────────────────────────────────────────────────────
 
-class RuleEngine:
+class Classifier:
     """
     The Founder Brain.
 
@@ -256,8 +256,8 @@ class RuleEngine:
     a prioritised list of BusinessEvents — structured decisions, not raw data.
 
     Usage:
-        engine = RuleEngine()
-        business_events = engine.analyze(processed_events)
+        classifier = Classifier()
+        business_events = classifier.analyze(processed_events)
     """
 
     # Rule registry — add new rules here

@@ -12,7 +12,7 @@ connectors:
   github:
     repo: ""                  # "owner/repo-name" e.g. "mycompany/main-app"
   gmail:
-    credentials_path: "heartbeat/config/gmail_credentials.json"
+    credentials_path: "heartbeat_app/config/gmail_credentials.json"
 
 delivery:
   preferred: "desktop"        # Options: desktop | slack | email | all

@@ -1,4 +1,5 @@
 import time
+import os
 from typing import List, Dict, Any
 from .base import BaseConnector
 
@@ -40,9 +41,14 @@ class GmailConnector(BaseConnector):
     end-to-end without any Google setup.
     """
 
-    def __init__(self, credentials_path: str = "heartbeat/config/gmail_credentials.json",
+    def __init__(self, credentials_path: str = None,
                  max_results: int = 10):
-        self.credentials_path = credentials_path
+        if credentials_path is None:
+            # Project root is two levels up from this file
+            PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+            self.credentials_path = os.path.join(PROJECT_ROOT, "heartbeat_app", "config", "gmail_credentials.json")
+        else:
+            self.credentials_path = credentials_path
         self.max_results = max_results
 
     @property

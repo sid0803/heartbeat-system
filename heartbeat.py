@@ -1,17 +1,17 @@
-from heartbeat.core.config_manager import Config
-from heartbeat.connectors.slack import SlackConnector
-from heartbeat.connectors.health import HealthCheckConnector
-from heartbeat.connectors.git_conn import GitConnector
-from heartbeat.connectors.file_project import FileProjectConnector
-from heartbeat.connectors.gmail_conn import GmailConnector
-from heartbeat.connectors.github_conn import GitHubConnector
-from heartbeat.connectors.notion_conn import NotionConnector
-from heartbeat.core.processor import EventProcessor
-from heartbeat.intelligence.rule_engine import RuleEngine
-from heartbeat.core.summarizer import Summarizer
-from heartbeat.delivery.unified_notifier import UnifiedNotifier
-from heartbeat.core.scheduler import Scheduler
-from heartbeat.db.models import DatabaseManager
+from heartbeat_app.core.config_manager import Config
+from heartbeat_app.connectors.slack import SlackConnector
+from heartbeat_app.connectors.health import HealthCheckConnector
+from heartbeat_app.connectors.git_conn import GitConnector
+from heartbeat_app.connectors.file_project import FileProjectConnector
+from heartbeat_app.connectors.gmail_conn import GmailConnector
+from heartbeat_app.connectors.github_conn import GitHubConnector
+from heartbeat_app.connectors.notion_conn import NotionConnector
+from heartbeat_app.core.processor import EventProcessor
+from heartbeat_app.intelligence.classifier import Classifier
+from heartbeat_app.core.summarizer import Summarizer
+from heartbeat_app.delivery.unified_notifier import UnifiedNotifier
+from heartbeat_app.core.scheduler import Scheduler
+from heartbeat_app.db.models import DatabaseManager
 import os
 
 
@@ -76,8 +76,8 @@ def run_heartbeat():
     processed_events = processor.process(raw_data)
 
     # 5. ── FOUNDER BRAIN ── Convert to business signals
-    rule_engine      = RuleEngine()
-    business_events  = rule_engine.analyze(processed_events)
+    classifier       = Classifier()
+    business_events  = classifier.analyze(processed_events)
 
     # 6. Summarise with COO prompt (use business events if available, else raw)
     summarizer = _build_summarizer(config)

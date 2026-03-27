@@ -24,19 +24,19 @@ print("═"*65)
 print(dim("  Demonstrating all 6 layers including the new Founder Brain.\n"))
 pause(0.6)
 
-from heartbeat.core.config_manager import Config
-from heartbeat.connectors.slack import SlackConnector
-from heartbeat.connectors.health import HealthCheckConnector
-from heartbeat.connectors.git_conn import GitConnector
-from heartbeat.connectors.file_project import FileProjectConnector
-from heartbeat.connectors.gmail_conn import GmailConnector
-from heartbeat.connectors.github_conn import GitHubConnector
-from heartbeat.connectors.notion_conn import NotionConnector
-from heartbeat.core.processor import EventProcessor
-from heartbeat.intelligence.rule_engine import RuleEngine
-from heartbeat.intelligence.signals import Severity
-from heartbeat.core.summarizer import Summarizer
-from heartbeat.delivery.unified_notifier import UnifiedNotifier
+from heartbeat_app.core.config_manager import Config
+from heartbeat_app.connectors.slack import SlackConnector
+from heartbeat_app.connectors.health import HealthCheckConnector
+from heartbeat_app.connectors.git_conn import GitConnector
+from heartbeat_app.connectors.file_project import FileProjectConnector
+from heartbeat_app.connectors.gmail_conn import GmailConnector
+from heartbeat_app.connectors.github_conn import GitHubConnector
+from heartbeat_app.connectors.notion_conn import NotionConnector
+from heartbeat_app.core.processor import EventProcessor
+from heartbeat_app.intelligence.classifier import Classifier
+from heartbeat_app.intelligence.signals import Severity
+from heartbeat_app.core.summarizer import Summarizer
+from heartbeat_app.delivery.unified_notifier import UnifiedNotifier
 
 config    = Config()
 repo_path = config.connectors.get("git", {}).get("repo_path", ".")
@@ -69,12 +69,12 @@ print(f"  ✅ {len(events)} unique events with enriched schema (severity · type
 pause(0.5)
 
 # ─── STEP 3 — THE NEW LAYER ──────────────────────────────────────────────────
-step(3, 5, f"🧠 Founder Brain — Rule Engine")
+step(3, 5, f"🧠 Founder Brain — Classifier")
 print(dim("  Converting raw noise into structured BUSINESS DECISIONS...\n"))
 pause(0.5)
 
-rule_engine     = RuleEngine()
-business_events = rule_engine.analyze(events)
+classifier      = Classifier()
+business_events = classifier.analyze(events)
 pause(0.4)
 
 # Display business signals by severity
@@ -146,6 +146,5 @@ print(f"  {cyan('\"An event-driven intelligence system that transforms raw opera
 print(f"  {cyan(' signals into prioritized decision recommendations for founders.\"')}")
 print(f"\n  {bold('Next:')}")
 print(f"  • Add GEMINI_API_KEY to .env for real AI  →  {cyan('https://aistudio.google.com/')}")
-print(f"  • Start the loop: {cyan('python main.py')}")
+print(f"  • Start the loop: {cyan('python heartbeat.py')}")
 print(f"\n{dim('  github.com/sid0803/heartbeat-system')}\n")
-

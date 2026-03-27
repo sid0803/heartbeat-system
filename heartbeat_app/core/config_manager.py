@@ -5,8 +5,14 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Project root is two levels up from this file
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 class Config:
-    def __init__(self, config_path: str = "heartbeat/config/settings.yaml"):
+    def __init__(self, config_path: str = None):
+        if config_path is None:
+            config_path = os.path.join(PROJECT_ROOT, "heartbeat_app", "config", "settings.yaml")
+        
         with open(config_path, 'r') as f:
             self._config = yaml.safe_load(f)
 
