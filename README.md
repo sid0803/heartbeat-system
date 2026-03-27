@@ -19,12 +19,16 @@ Ingestion → Classification → Summarization → Delivery
 ## 📊 Sample Output
 
 🔴 **ACTION REQUIRED:**
-- Client unhappy with delay
+- [CLIENT] Client unhappy with delay (Slack — 2h ago)
+- [TEAM BLOCKER] Auth bug staled (GitHub — 26h ago)
 
 🟡 **FOR AWARENESS:**
-- Task completed
+- [PROJECT] Q2 Roadmap overdue (Notion)
+- [OPPORTUNITY] New lead from demo (Gmail)
 
-✅ **ALL CLEAR**
+✅ **ALL CLEAR:**
+- System infrastructure 100% UP
+- Core database backups verified
 
 ---
 
@@ -32,14 +36,14 @@ Ingestion → Classification → Summarization → Delivery
 
 ## ✨ Key Features
 
-- **30-Minute Check-in**: Runs automatically with cross-platform activity detection (Mac, Windows, Linux).
-- **3 AI Providers**: Powered by **Gemini (free)**, **Claude (Anthropic)**, or **GPT-4o (OpenAI)** — switch via one config line.
+- **30-Minute Check-in**: Runs automatically with cross-platform activity detection.
+- **Master Hardening**: Structured source failure tracking (reports exactly which API failed).
+- **Executive 3-Tier Reporting**: Standardized 🔴/🟡/✅ decision briefs.
+- **Score-based Intelligence**: Every signal carries a numerical risk score and a `HIGH/MEDIUM/LOW` confidence label.
+- **Advanced Deduplication**: Cross-source consolidation (matches Slack alerts with Gmail follow-ups).
 - **7 Data Connectors**: Slack, Gmail, GitHub, Notion, Git history, health endpoints, and project file scan.
-- **Smart Triage**: Urgency decay — stale events auto-escalate after 4 hours so nothing falls through the cracks.
-- **3 Delivery Channels**: Desktop notification, Slack webhook, or HTML email digest.
+- **3 AI Providers**: Powered by **Gemini (free)**, **Claude (Anthropic)**, or **GPT-4o (OpenAI)**.
 - **Daily Executive Summary**: A "Big Picture" report delivered every morning at 8:00 AM.
-- **Founder Feedback Loop**: Coach the AI directly via `heartbeat_app/config/feedback.txt` to adjust its style.
-- **Mock Mode**: Works fully without any API keys — great for demos and onboarding.
 
 ---
 
@@ -104,11 +108,11 @@ graph TD
 ### Component Overview
 
 1. **Layer 0 — Scheduler**: Activity-aware loop (skips cycles when you're away). Triggers the 8AM daily summary automatically.
-2. **Layer 1 — Connectors**: 7 pluggable data sources. Each degrades gracefully to rich mock data when API keys are absent.
-3. **Layer 2 — Event Engine**: Normalises raw signals into a structured schema (`type`, `severity`, `client`, `age_hours`, `suggested_action`). Stale items escalate automatically.
-4. **Layer 3 — 🧠 Founder Brain (Rule Engine)**: The core USP. 6 independent business rules convert enriched events into `BusinessEvent` objects that each answer: **WHAT happened · HOW URGENT · WHAT TO DO**. Rules: `client_risk`, `deadline_risk`, `system_failure`, `team_blocker`, `revenue_risk`, `opportunity_signal`.
-5. **Layer 4 — AI Summarizer (COO Brief)**: Sends `BusinessEvent` objects to the LLM with a **startup COO prompt** — not a generic "summarise this" prompt. Output format: 🚨 Urgent Actions / 👀 Watch Closely / ✅ Running Smooth / 📌 Bottom Line.
-6. **Layer 5 — Delivery Engine**: Routes the digest to desktop, Slack, email, or all three simultaneously.
+2. **Layer 1 — Connectors**: 7 pluggable data sources. Each includes **Source Failure Monitoring** — if an API fails, it's reported in the digest rather than crashing.
+3. **Layer 2 — Event Engine**: Normalises raw signals into a structured schema. Features **Advanced Deduplication** to consolidate similar messages from different sources.
+4. **Layer 3 — 🧠 Founder Brain (Rule & Scoring Engine)**: The core USP. Combines 6 independent business rules with a **Keyword-Scoring Engine** to calculate risk and assign confidence labels (HIGH/MEDIUM/LOW).
+5. **Layer 4 — AI Summarizer (Master COO Brief)**: Sends business signals to the LLM with a startup COO prompt. Output format: 🔴 Action Required / 🟡 For Awareness / ✅ All Clear / 📌 Bottom Line.
+6. **Layer 5 — Delivery Engine**: Routes the digest to desktop, Slack, email, or all three.
 
 ---
 
