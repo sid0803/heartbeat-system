@@ -115,6 +115,34 @@ def rule_revenue_risk(events: List[Dict]) -> List[BusinessEvent]:
         ))
     return results
 
+def rule_cross_source_intensity(events: List[Dict], detected_signals: List[BusinessEvent]) -> List[BusinessEvent]:
+    """
+    ULTRA-INTELLIGENCE: Detects if the same client/topic is appearing across multiple
+    different sources (e.g. Slack + Gmail). This indicates 'HIGH INTENSITY' signals.
+    """
+    results = []
+    source_counts = {}  # client -> set(sources)
+    
+    for s in detected_signals:
+        if not s.client: continue
+        if s.client not in source_counts: source_counts[s.client] = set()
+        source_counts[s.client].add(s.source)
+    
+    for client, sources in source_counts.items():
+        if len(sources) > 1:
+            # 🧠 Multi-Source Thinking triggered
+            results.append(BusinessEvent(
+                signal_type = "high_intensity_alert",
+                severity    = Severity.CRITICAL,
+                message     = f"INTEREST INTENSIFYING: {client} is appearing across {len(sources)} sources ({', '.join(sources)}).",
+                action      = f"PRIORITIZE {client} — multi-channel noise suggests a critical situation.",
+                source      = "intelligence_brain",
+                client      = client,
+                confidence  = 1.0,
+                correlation_id = f"cross_source_{client}"
+            ))
+    return results
+
 def rule_communication_gap(events: List[Dict]) -> List[BusinessEvent]:
     results = []
     for e in events:
@@ -196,6 +224,12 @@ class Classifier:
         for ev in all_events:
             key = (ev.signal_type, ev.source, ev.message[:30])
             if key not in seen: seen.add(key); unique_events.append(ev)
+        
+        # 🧠 PHASE 2: Multi-Source Thinking (Thinking across sources)
+        cross_source_signals = rule_cross_source_intensity(processed_events, unique_events)
+        unique_events.extend(cross_source_signals)
+
+        # Sort: CRITICAL → URGENT → INFO
         _order = {Severity.CRITICAL: 0, Severity.URGENT: 1, Severity.INFO: 2}
         unique_events.sort(key=lambda x: _order.get(x.severity, 3))
         print(f"🧠 Intelligence Layer: {len(unique_events)} signals detected.")

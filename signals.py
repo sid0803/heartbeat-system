@@ -62,6 +62,7 @@ class BusinessEvent:
     age_hours:    float = 0.0       # How long this signal has been active
     confidence:   float = 1.0       # 0.0–1.0 — how certain the rule is
     raw_content:  str = ""          # Original raw content for traceability
+    correlation_id: str = ""        # ID to group related signals across sources
     metadata:     Dict[str, Any] = field(default_factory=dict)
 
     def to_prompt_line(self) -> str:
