@@ -1,5 +1,5 @@
 
-# 💓 Heartbeat
+# 💓 Heartbeat : Your Universal Personal Intelligence System
 
 ### **From 100 Notifications → 1 Clear Decision**
 
